@@ -12,6 +12,7 @@ import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
+import org.openqa.selenium.interactions.Actions;
 
 import gov.dha.jmlfdc.logicole.ivv.pages.HomePage.EnvironmentType;
 import gov.dha.jmlfdc.logicole.ivv.utils.BasePage;
@@ -395,7 +396,9 @@ public class ABiSearchPage extends BasePage {
 	public void viewProductDetails(String productIdentifier)
 	{
 		WebElement rowObject = getResultRowObject(productIdentifier);
-		rowObject.findElement(By.cssSelector("button[id^='goToDetailsButtonLink']")).click();
+		Actions action = new Actions(driver);
+		WebElement button_object = rowObject.findElement(By.cssSelector("button[id^='goToDetailsButtonLink']"));
+		action.moveToElement(button_object).click().perform();
 	}
 	
 	
@@ -407,7 +410,9 @@ public class ABiSearchPage extends BasePage {
 	public void checkProductToCompare(String productIdentifier)
 	{
 		WebElement rowObject = getResultRowObject(productIdentifier);
-		rowObject.findElement(By.cssSelector("input[type='checkbox'][title^='Select to compare']")).click();
+		Actions action = new Actions(driver);
+		WebElement checkbox_object = rowObject.findElement(By.cssSelector("input[type='checkbox'][title^='Select to compare']"));
+		action.moveToElement(checkbox_object).click().perform();
 	}
 	
 	
@@ -419,7 +424,9 @@ public class ABiSearchPage extends BasePage {
 	public void viewProductRelatedSiteRecords(String productIdentifier)
 	{
 		WebElement rowObject = getResultRowObject(productIdentifier);
-		rowObject.findElement(By.cssSelector("button[id^='viewRelatedSiteRecordsButtonLink']")).click();
+		Actions action = new Actions(driver);
+		WebElement button_object = rowObject.findElement(By.cssSelector("button[id^='viewRelatedSiteRecordsButtonLink']"));
+		action.moveToElement(button_object).click().perform();
 	}
 	
 	
@@ -431,7 +438,9 @@ public class ABiSearchPage extends BasePage {
 	public void viewRelatedProducts(String productIdentifier)
 	{
 		WebElement rowObject = getResultRowObject(productIdentifier);
-		rowObject.findElement(By.cssSelector("button[id^='viewRelatedProductsButtonLink']")).click();
+		Actions action = new Actions(driver);
+		WebElement button_object = rowObject.findElement(By.cssSelector("button[id^='viewRelatedProductsButtonLink']"));
+		action.moveToElement(button_object).click().perform();
 	}
 	
 	
