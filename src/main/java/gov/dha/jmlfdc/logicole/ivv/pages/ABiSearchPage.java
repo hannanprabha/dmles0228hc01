@@ -30,6 +30,8 @@ public class ABiSearchPage extends BasePage {
 	private String productCategoryEle = "Product CategoryCategoryPanel";
 	private String productTypeEle = "Product TypeCategoryPanel";
 	private String searchWithinResultEle = "searchWithinResultsInput";
+	private String resultRowsEle = "#abiSearchDiv div[class^='ui-grid-row']";
+	
 	private String leftSidePanelResultEle = "//*[@id='abiLeftSidePanel']/div/div[2]/div/div/div/selected-facet-options-breadbox/div";
 	/**************************** END **********************************/
 
@@ -383,4 +385,88 @@ public class ABiSearchPage extends BasePage {
 
 		return tempPageSelection;
 	}
+	
+	
+	/**
+	 * Description : This method will click on Product Identifier button to view product details in searched results table
+	 * Usage : viewProductDetails("00382903096046");
+	 * 
+	 */
+	public void viewProductDetails(String productIdentifier)
+	{
+		WebElement rowObject = getResultRowObject(productIdentifier);
+		rowObject.findElement(By.cssSelector("button[id^='goToDetailsButtonLink']")).click();
+	}
+	
+	
+	/**
+	 * Description : This method will click on check box to compare product in searched results table
+	 * Usage : checkProductToCompare("00382903096046");
+	 * 
+	 */
+	public void checkProductToCompare(String productIdentifier)
+	{
+		WebElement rowObject = getResultRowObject(productIdentifier);
+		rowObject.findElement(By.cssSelector("input[type='checkbox'][title^='Select to compare']")).click();
+	}
+	
+	
+	/**
+	 * Description : This method will click on view related site records button to view product related site records in searched results table
+	 * Usage : viewProductRelatedSiteRecords("00382903096046");
+	 * 
+	 */
+	public void viewProductRelatedSiteRecords(String productIdentifier)
+	{
+		WebElement rowObject = getResultRowObject(productIdentifier);
+		rowObject.findElement(By.cssSelector("button[id^='viewRelatedSiteRecordsButtonLink']")).click();
+	}
+	
+	
+	/**
+	 * Description : This method will click on view related products button to view related products of product in searched results table
+	 * Usage : viewRelatedProducts("00382903096046");
+	 * 
+	 */
+	public void viewRelatedProducts(String productIdentifier)
+	{
+		WebElement rowObject = getResultRowObject(productIdentifier);
+		rowObject.findElement(By.cssSelector("button[id^='viewRelatedProductsButtonLink']")).click();
+	}
+	
+	
+	/**
+	 * Description : This method will return Abi search result row object by product identifier value
+	 * Usage : getResultRowObject("00382903096046");
+	 * 
+	 */
+	private WebElement getResultRowObject(String productIdentifier) 
+	{
+		int rowIndex = -1;
+		WebElement rowObject = null;
+		List<WebElement> elements = driver.findElements(By.cssSelector("button[id^='goToDetailsButtonLink']"));
+		for (int row = 0; row < elements.size(); row++) 
+		{
+			String actualProductIdentifier = elements.get(row).getText();
+			if (productIdentifier.equals(actualProductIdentifier)) 
+			{
+				rowIndex = row;
+				break;
+			}
+		}
+		if (rowIndex != -1)
+		{
+			List<WebElement> rowElements = driver.findElements(By.cssSelector(resultRowsEle));
+			rowObject = rowElements.get(rowIndex);
+			js.executeScript("arguments[0].scrollIntoView(true)", rowObject);
+		}
+		else
+		{
+			String msg = String.format("[%s] Product Identifier not exist in Abi search result", productIdentifier); 
+			throw new RuntimeException(msg);
+		}
+		
+		return rowObject;
+	}
+		
 }

@@ -20,41 +20,18 @@ public class ABiSearchPageSelectionRegression_00 extends ScriptBase{
 	public void testChromeSelenium() throws InterruptedException {
 
 		// Step 1 -3: launch url and login to the logicole
-		homepage.startAppliaction(EnvironmentType.test_env);
 		
-		homepage.selectUserProfile("Abi Management");
-		
-		homepage.selectABiSearch();
-		
-		abisearchpage.expandSidePanel();
-		
-		abisearchpage.selectProductType("Dental");
-		
-		abisearchpage.pageActions(PageSelections.Next_Page);
-		
-		abisearchpage.pageActions(PageSelections.Next_Page);
-		
-		abisearchpage.pageActions(PageSelections.Prevous_Page);
-		
-		abisearchpage.pageActions(PageSelections.Last_Page);
-		
-		abisearchpage.pageActions(PageSelections.Next_Page);
-		
-		abisearchpage.pageActions(PageSelections.Prevous_Page);
-		
-		abisearchpage.pageActions(PageSelections.Next_Page);
-		
-		abisearchpage.pageActions(PageSelections.First_Page);
-		
-		abisearchpage.pageActions(PageSelections.Next_Page);
-		
-		abisearchpage.pageNumberSelection("8");
 //		
-		abisearchpage.pageNumberItems("50");
+		Thread.sleep(10000);
+		abisearchpage.viewProductDetails("00382903096046");
+		abisearchpage.checkProductToCompare("00382903096046");
+		abisearchpage.checkProductToCompare("10884521133105");
+		abisearchpage.checkProductToCompare("30382903726104");
+		abisearchpage.viewProductRelatedSiteRecords("30382903726104");
+		abisearchpage.viewRelatedProducts("30382903726104");
+		Thread.sleep(10000);
 		
 		
-		// Step 4-6: logout and verify the output message
-		homepage.logout();
 	}
 
 	@AfterClass
